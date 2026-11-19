@@ -1,0 +1,530 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Hanaa 💗</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Trebuchet MS', sans-serif;
+    background: linear-gradient(135deg, #fff0f5, #ffe1eb, #fff7f0);
+    color: #70465a;
+    text-align: center;
+}
+
+.slide {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    padding: 16px 15px 85px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    position: relative;
+    z-index: 1;
+    animation: fadeIn .4s ease;
+}
+
+.slide.active {
+    display: flex;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    background: rgba(255,255,255,0.90);
+    width: 100%;
+    max-width: 480px;
+    margin: auto;
+    padding: clamp(16px, 4vh, 30px) 20px;
+    border-radius: 25px;
+    box-shadow: 0 8px 30px #d98ca833;
+}
+
+h1 {
+    color: #d65b91;
+    font-size: clamp(25px, 7vw, 38px);
+    margin: 10px 0;
+}
+
+h2 {
+    color: #c65d8c;
+    font-size: clamp(19px, 5vw, 25px);
+    margin: 10px 0;
+}
+
+p {
+    line-height: 1.55;
+    font-size: clamp(14px, 3.8vw, 17px);
+    margin: 10px 0;
+}
+
+button {
+    background: #e879a8;
+    color: white;
+    border: none;
+    padding: 12px 21px;
+    border-radius: 30px;
+    font-size: 15px;
+    cursor: pointer;
+    margin: 7px;
+    transition: .2s;
+}
+
+button:hover {
+    background: #cf568b;
+    transform: scale(1.04);
+}
+
+input {
+    padding: 13px;
+    border: 2px solid #f0b6ce;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 280px;
+    font-size: 16px;
+    text-align: center;
+    outline: none;
+    color: #70465a;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.gift {
+    background: #fff0f5;
+    border: 2px dashed #e9a0bd;
+    border-radius: 18px;
+    padding: 12px;
+    margin: 9px 0;
+}
+
+.gift button {
+    background: #d98bad;
+}
+
+.heart {
+    position: fixed;
+    bottom: -30px;
+    animation: floatUp 6s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.cake {
+    font-size: clamp(45px, 12vw, 70px);
+    margin: 8px;
+}
+
+#letter {
+    text-align: left;
+    white-space: pre-line;
+    font-size: clamp(13px, 3.5vw, 16px);
+    line-height: 1.5;
+}
+
+.navigation {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 68px;
+    padding: 10px 15px;
+    background: #fff8faee;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 20;
+}
+
+.navigation button {
+    margin: 0;
+    padding: 11px 19px;
+}
+
+#counter {
+    font-size: 13px;
+    color: #bd7293;
+}
+
+#error {
+    color: #d65b91;
+    font-size: 14px;
+    min-height: 18px;
+}
+
+@media (max-height: 700px) {
+    .slide {
+        padding-top: 8px;
+        padding-bottom: 75px;
+    }
+
+    .card {
+        padding: 14px 17px;
+    }
+
+    h1, h2 {
+        margin: 6px 0;
+    }
+
+    p {
+        line-height: 1.4;
+        margin: 7px 0;
+    }
+
+    .cake {
+        margin: 3px;
+    }
+
+    .gift {
+        padding: 8px;
+        margin: 5px 0;
+    }
+}
+
+@media (max-width: 360px) {
+    .slide {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .card {
+        padding: 13px;
+    }
+
+    button {
+        padding: 11px 15px;
+        font-size: 14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PASSWORD SCREEN -->
+<section class="slide active" id="passwordSlide">
+    <div class="card">
+        <div style="font-size:55px">🔐🎀</div>
+        <h1>Wait a minute!</h1>
+        <p>This little surprise is only for Hanaa. 💗</p>
+        <p>Enter the secret password to unlock your present!</p>
+
+        <input
+            type="password"
+            id="passwordInput"
+            placeholder="Enter your secret password"
+            onkeydown="if(event.key === 'Enter') checkPassword()"
+        >
+
+        <br>
+
+        <button onclick="checkPassword()">Unlock my present 💌</button>
+
+        <p id="error"></p>
+        <p style="font-size:35px">🧸💗🎀</p>
+    </div>
+</section>
+
+<!-- SLIDE 1: WELCOME -->
+<section class="slide">
+    <div class="card">
+        <div style="font-size:55px">🎀💗🎀</div>
+        <h1>Heyyy Hanaa!</h1>
+        <p>Someone has a little surprise waiting for you...</p>
+        <p>And yes, it's for the birthday girl turning TWO DECADES OLD. 😭</p>
+        <p>Are you readyyyy?</p>
+        <div style="font-size:35px">💌</div>
+    </div>
+</section>
+
+<!-- SLIDE 2: BIRTHDAY -->
+<section class="slide">
+    <div class="card">
+        <div class="cake">🎂</div>
+        <h1>HAPPY 20TH BIRTHDAY!</h1>
+        <h2>Hanaajiiii 💗</h2>
+        <p>
+            TWENTY. LIKE ACTUALLY TWENTY?! 😭😂
+            <br>
+            Welcome to your twenties, kelavi!
+        </p>
+        <p>Today is all about YOUUU! 🥹</p>
+    </div>
+</section>
+
+<!-- SLIDE 3: BIRTHDAY MESSAGE -->
+<section class="slide">
+    <div class="card">
+        <h2>💌 A little birthday message</h2>
+        <p>
+            Happiest birthday to youuu!
+            <br><br>
+            I hope this new chapter brings you endless happiness,
+            beautiful memories, unexpected blessings and all the
+            little things that make your heart smile.
+            <br><br>
+            May you always have reasons to laugh, people who love you,
+            and dreams that make you excited to wake up every day.
+            <br><br>
+            Never stop being your silly, wonderful self.
+            You deserve so much happiness. 💗
+        </p>
+    </div>
+</section>
+
+<!-- SLIDE 4: GIFTS -->
+<section class="slide">
+    <div class="card">
+        <h2>🎁 Three little presents!</h2>
+        <p>Tap each gift to open ittt.</p>
+
+        <div class="gift">
+            <div style="font-size:45px">🎀</div>
+            <button onclick="reveal('gift1')">Gift number 1</button>
+            <p id="gift1" class="hidden">
+                A lifetime supply of happiness for youuu! 🥹💗
+            </p>
+        </div>
+
+        <div class="gift">
+            <div style="font-size:45px">🧸</div>
+            <button onclick="reveal('gift2')">Gift number 2</button>
+            <p id="gift2" class="hidden">
+                Unlimited hugs, even on your worst days. 🫂
+            </p>
+        </div>
+
+        <div class="gift">
+            <div style="font-size:45px">💎</div>
+            <button onclick="reveal('gift3')">Gift number 3</button>
+            <p id="gift3" class="hidden">
+                A reminder that you are precious and loved. Always. 💗
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 5: FUNNY ANNOUNCEMENT -->
+<section class="slide">
+    <div class="card">
+        <h2>🚨 IMPORTANT ANNOUNCEMENT 🚨</h2>
+        <h1>20?!</h1>
+        <p>
+            Your childhood subscription has officially expired. 😭
+            <br><br>
+            New features unlocked:
+            <br>✨ Back pain
+            <br>✨ Random responsibilities
+            <br>✨ Saying "I'm tired" every five minutes
+            <br>✨ Still acting like a child
+        </p>
+        <h2>Grandma era loading... 😂</h2>
+    </div>
+</section>
+
+<!-- SLIDE 6: LETTER -->
+<section class="slide">
+    <div class="card">
+        <h2>💗 One last thing...</h2>
+        <p id="letter">
+Dear Hanaa,
+
+I hope you know how special you are.
+Thank you for all the laughs, chaos and memories.
+
+Twenty is a whole new chapter, and I hope it becomes
+one of the most beautiful chapters of your life.
+
+Keep smiling, keep dreaming, keep being YOU.
+
+No matter how old we get, let's never lose our
+childish side. 😂
+
+Love youuu so much!
+
+Happy birthday, my girl! 🥹💗
+        </p>
+        <div style="font-size:40px">💗🧸🎀</div>
+    </div>
+</section>
+
+<!-- SLIDE 7: FINAL BIRTHDAY SURPRISE -->
+<section class="slide">
+    <div class="card">
+        <div style="font-size:65px">🎀💗🎂</div>
+
+        <p>AND THAT'S NOT ALL...</p>
+
+        <h1>HAPPY 20TH BIRTHDAYYY!</h1>
+
+        <p>
+            Hanaa, I hope this little surprise made you smile.
+            🥹💕
+        </p>
+
+        <div style="font-size:45px">🧸🌷💌</div>
+
+        <h2>One last reminder...</h2>
+
+        <p>
+            You are loved.
+            <br>
+            You are special.
+            <br>
+            And you deserve all the happiness in this world.
+        </p>
+
+        <h1>LOVE YOUUU! 💗</h1>
+
+        <p>Forever your little partner in chaos. 😂</p>
+
+        <button onclick="restartBirthday()">
+            EXPERIENCE THE SURPRISE AGAIN ↻
+        </button>
+
+        <p style="font-size:13px">Made with endless love 🎀</p>
+    </div>
+</section>
+
+<!-- NAVIGATION -->
+<div class="navigation" id="navigation">
+    <button onclick="previousSlide()" id="backButton">← Back</button>
+    <span id="counter">1 / 7</span>
+    <button onclick="nextSlide()" id="nextButton">Next →</button>
+</div>
+
+<script>
+
+// CHANGE YOUR PASSWORD HERE
+const correctPassword = "hanaa20";
+
+// GET ALL BIRTHDAY SLIDES
+const birthdaySlides = Array.from(
+    document.querySelectorAll("body > section.slide:not(#passwordSlide)")
+);
+
+let currentSlide = 0;
+
+// PASSWORD CHECK
+function checkPassword() {
+    const entered = document.getElementById("passwordInput").value;
+
+    if (entered === correctPassword) {
+        document.getElementById("passwordSlide").classList.remove("active");
+
+        currentSlide = 0;
+        showSlide();
+
+        document.getElementById("navigation").style.display = "flex";
+    } else {
+        document.getElementById("error").textContent =
+            "Oops! Wrong password. Try again, birthday girl! 💗";
+
+        document.getElementById("passwordInput").value = "";
+    }
+}
+
+// SHOW CURRENT SLIDE
+function showSlide() {
+    birthdaySlides.forEach((slide, index) => {
+        slide.classList.toggle("active", index === currentSlide);
+        slide.scrollTop = 0;
+    });
+
+    document.getElementById("counter").textContent =
+        (currentSlide + 1) + " / " + birthdaySlides.length;
+
+    document.getElementById("backButton").style.visibility =
+        currentSlide === 0 ? "hidden" : "visible";
+
+    document.getElementById("nextButton").textContent =
+        currentSlide === birthdaySlides.length - 1
+        ? "Finish 💗"
+        : "Next →";
+}
+
+// NEXT BUTTON
+function nextSlide() {
+    if (currentSlide < birthdaySlides.length - 1) {
+        currentSlide++;
+        showSlide();
+    }
+}
+
+// BACK BUTTON
+function previousSlide() {
+    if (currentSlide > 0) {
+        currentSlide--;
+        showSlide();
+    }
+}
+
+// REPLAY FROM THE FINAL SLIDE
+function restartBirthday() {
+    currentSlide = 0;
+    showSlide();
+}
+
+// OPEN GIFTS
+function reveal(id) {
+    document.getElementById(id).classList.toggle("hidden");
+}
+
+// FLOATING HEARTS
+function makeHeart() {
+    const heart = document.createElement("div");
+
+    heart.className = "heart";
+
+    heart.innerHTML = ["💗", "💕", "✨", "🎀"][
+        Math.floor(Math.random() * 4)
+    ];
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (15 + Math.random() * 20) + "px";
+    heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 8000);
+}
+
+setInterval(makeHeart, 650);
+
+</script>
+
+</body>
+</html>
+
+
